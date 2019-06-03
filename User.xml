@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-04 00:44:48">
+<Class name="User.Address">
+<Super>%SerialObject,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65167,52991.220615</TimeChanged>
+<TimeCreated>65166,72526.322407</TimeCreated>
+
+<Property name="city">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="street">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="postalCode">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="getAddress">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[		Return ..city_" "_..street_" "_..postalCode
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheSerialState</Type>
+<State>AddressState</State>
+<StreamLocation>^User.AddressS</StreamLocation>
+<Data name="AddressState">
+<Value name="1">
+<Value>city</Value>
+</Value>
+<Value name="2">
+<Value>street</Value>
+</Value>
+<Value name="3">
+<Value>postalCode</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="User.Client">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,User.Person</Super>
+<TimeChanged>65167,84479.413293</TimeChanged>
+<TimeCreated>65166,54824.003155</TimeCreated>
+
+<Property name="clients">
+<Type>Facture</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Client</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Method name="introduceYourself">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[		Return "Klient: "_..name_" "_..lastName_" "_..sex_" "_..emailAddress_" "_..telNumber_" "_..addr.getAddress()
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.ClientD</DataLocation>
+<DefaultData>ClientDefaultData</DefaultData>
+<IdLocation>^User.ClientD</IdLocation>
+<IndexLocation>^User.ClientI</IndexLocation>
+<StreamLocation>^User.ClientS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="ClientDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>id</Value>
+</Value>
+<Value name="3">
+<Value>lastName</Value>
+</Value>
+<Value name="4">
+<Value>addr</Value>
+</Value>
+<Value name="5">
+<Value>name</Value>
+</Value>
+<Value name="6">
+<Value>emailAddress</Value>
+</Value>
+<Value name="7">
+<Value>telNumber</Value>
+</Value>
+<Value name="8">
+<Value>sex</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="addr">
+<Selectivity>10.0000%,city:14.2857%,postalCode:10.0000%,street:10.0000%</Selectivity>
+<AverageFieldSize>34.8,city:8.6,postalCode:4.9,street:15.3</AverageFieldSize>
+</Property>
+<Property name="emailAddress">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.9</AverageFieldSize>
+</Property>
+<Property name="lastName">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.9</AverageFieldSize>
+</Property>
+<Property name="name">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>17.4</AverageFieldSize>
+</Property>
+<Property name="sex">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="telNumber">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="User.Employee">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,User.Person</Super>
+<TimeChanged>65167,84479.682442</TimeChanged>
+<TimeCreated>65166,55181.356933</TimeCreated>
+
+<Property name="position">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="salary">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="introduceYourself">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[		Return "Pracownik: "_..name_" "_..lastName_" Placa: "_..salary_" Adres: "_..addr.getAddress()
+]]></Implementation>
+</Method>
+
+<Property name="factures">
+<Type>Facture</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Employee</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.EmployeeD</DataLocation>
+<DefaultData>EmployeeDefaultData</DefaultData>
+<IdLocation>^User.EmployeeD</IdLocation>
+<IndexLocation>^User.EmployeeI</IndexLocation>
+<StreamLocation>^User.EmployeeS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="EmployeeDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>name</Value>
+</Value>
+<Value name="3">
+<Value>lastName</Value>
+</Value>
+<Value name="4">
+<Value>addr</Value>
+</Value>
+<Value name="5">
+<Value>position</Value>
+</Value>
+<Value name="6">
+<Value>salary</Value>
+</Value>
+<Value name="7">
+<Value>sex</Value>
+</Value>
+<Value name="8">
+<Value>emailAddress</Value>
+</Value>
+<Value name="9">
+<Value>telNumber</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="addr">
+<Selectivity>10.0000%,city:12.5000%,postalCode:10.0000%,street:10.0000%</Selectivity>
+<AverageFieldSize>34.1,city:5.9,postalCode:5,street:17.2</AverageFieldSize>
+</Property>
+<Property name="emailAddress">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="lastName">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<Property name="name">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>15.7</AverageFieldSize>
+</Property>
+<Property name="position">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.9</AverageFieldSize>
+</Property>
+<Property name="salary">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>9</AverageFieldSize>
+</Property>
+<Property name="sex">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<Property name="telNumber">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.7</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="User.Facture">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65167,84480.152018</TimeChanged>
+<TimeCreated>65166,64921.153285</TimeCreated>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Property empl As Employee [ Required ];
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Property cli As Client [ Required ];
+
+]]></Content>
+</UDLText>
+
+<Property name="employees">
+<Type>Employee</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Facture</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="clients">
+<Type>Client</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Facture</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="facturePos">
+<Type>FacturePosition</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Facture</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="employesIndex">
+<Properties>employees</Properties>
+</Index>
+
+<Index name="clientsIndex">
+<Properties>clients</Properties>
+</Index>
+
+<Method name="factureVal">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set val = 0
+	
+    For i=1:1:$Length(..facturePos){
+        Set val = val + ..facturePos.GetAt(i).positionValue()
+    }
+    return val
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*Method factureValue() As %Double
+{
+	Set val = 0
+	for i=0:1:..FactPos.Size{
+		write i
+}
+}
+*/
+]]></Content>
+</UDLText>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.FactureD</DataLocation>
+<DefaultData>FactureDefaultData</DefaultData>
+<IdLocation>^User.FactureD</IdLocation>
+<IndexLocation>^User.FactureI</IndexLocation>
+<StreamLocation>^User.FactureS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="FactureDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>empl</Value>
+</Value>
+<Value name="3">
+<Value>cli</Value>
+</Value>
+<Value name="4">
+<Value>factures</Value>
+</Value>
+<Value name="5">
+<Value>clients</Value>
+</Value>
+<Value name="6">
+<Value>employees</Value>
+</Value>
+</Data>
+<Data name="factPos">
+<Attribute>factPos</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"factPos"</Subscript>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="clients">
+<Selectivity>12.5000%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="employees">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="clientsIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="employesIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="User.FacturePosition">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65167,84481.012652</TimeChanged>
+<TimeCreated>65166,66940.908138</TimeCreated>
+
+<Property name="prod">
+<Type>Product</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="count">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MAXVAL" value="15"/>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Method name="positionValue">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set resp = ..prod.calculateBruttoPrice() * ..count
+	Return resp
+]]></Implementation>
+</Method>
+
+<Property name="facturePos">
+<Type>Facture</Type>
+<Cardinality>one</Cardinality>
+<Inverse>FacturePosition</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="products">
+<Type>Product</Type>
+<Cardinality>one</Cardinality>
+<Inverse>FacturePosition</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="facturePosIndex">
+<Properties>facturePos</Properties>
+</Index>
+
+<Index name="productsIndex">
+<Properties>products</Properties>
+</Index>
+
+<UDLText name="T">
+<Content><![CDATA[
+/*
+Property City As %String [ Required ];
+
+Property Street As %String [ Required ];
+
+Property PostalCode As %String [ Required ];
+*/
+]]></Content>
+</UDLText>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.FacturePositionD</DataLocation>
+<DefaultData>FacturePositionDefaultData</DefaultData>
+<IdLocation>^User.FacturePositionD</IdLocation>
+<IndexLocation>^User.FacturePositionI</IndexLocation>
+<StreamLocation>^User.FacturePositionS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="FacturePositionDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>prod</Value>
+</Value>
+<Value name="3">
+<Value>count</Value>
+</Value>
+<Value name="4">
+<Value>facturePos</Value>
+</Value>
+<Value name="5">
+<Value>products</Value>
+</Value>
+<Value name="6">
+<Value>test</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="count">
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>1.7</AverageFieldSize>
+</Property>
+<Property name="facturePos">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="prod">
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="products">
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="test">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>8.9</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="facturePosIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="productsIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+
+<Property name="test">
+<Type>%Integer</Type>
+</Property>
+</Class>
+
+
+<Class name="User.Person">
+<Abstract>1</Abstract>
+<TimeChanged>65167,59290.283718</TimeChanged>
+<TimeCreated>65166,54471.99268</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="lastName">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="addr">
+<Type>Address</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="sex">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="VALUELIST" value=",Male,Female"/>
+</Property>
+
+<Property name="emailAddress">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="telNumber">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="introduceYourself">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[		Return ..name_" "_..lastName_" "_..sex_" "_..emailAddress_" "_..telNumber_" "_..addr.getAddress()
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="User.Product">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>65167,84479.905124</TimeChanged>
+<TimeCreated>65166,55621.814413</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="nettoPrice">
+<Type>%Double</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="calculateBruttoPrice">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+		Set tax = ..nettoPrice * 0.23
+		Return ..nettoPrice + tax
+]]></Implementation>
+</Method>
+
+<Property name="products">
+<Type>FacturePosition</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Product</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^User.ProductD</DataLocation>
+<DefaultData>ProductDefaultData</DefaultData>
+<IdLocation>^User.ProductD</IdLocation>
+<IndexLocation>^User.ProductI</IndexLocation>
+<StreamLocation>^User.ProductS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="ProductDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Id</Value>
+</Value>
+<Value name="3">
+<Value>NazwaProduktu</Value>
+</Value>
+<Value name="4">
+<Value>TotalCount</Value>
+</Value>
+<Value name="5">
+<Value>NettoPrice</Value>
+</Value>
+<Value name="6">
+<Value>name</Value>
+</Value>
+<Value name="7">
+<Value>nettoPrice</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>3</AverageFieldSize>
+</Property>
+<Property name="name">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>15.3</AverageFieldSize>
+</Property>
+<Property name="nettoPrice">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>3.9</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+</Export>
